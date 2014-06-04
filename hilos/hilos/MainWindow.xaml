@@ -1,0 +1,44 @@
+﻿<Window x:Class="hilos.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="768" Width="1024" MouseMove="Window_MouseMove" MouseUp="Window_MouseUp"  >
+    <Grid Margin="0" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="87*"/>
+            <RowDefinition Height="79*"/>
+            <RowDefinition Height="87*"/>
+            <RowDefinition Height="114*"/>
+            <RowDefinition Height="181*"/>
+            <RowDefinition Height="43*"/>
+            <RowDefinition Height="41*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="89*"/>
+            <ColumnDefinition Width="419*"/>
+        </Grid.ColumnDefinitions>
+        <Label Name="lIf" Content="If" Margin="0" MouseDown="lIf_MouseDown" />
+        <Label Name="lInicio" Content="Inicio" Margin="0" Grid.Row="1"/>
+        <Label Content="Label" Margin="0" Grid.Row="2"/>
+        <Label Content="Label" Margin="0" Grid.Row="3"/>
+        <Grid  Name="workSpace" Grid.Column="1" Margin="0" Grid.RowSpan="7"  AllowDrop="True"  >
+            <Rectangle Fill="Blue" HorizontalAlignment="Left" Height="112" Margin="10,421,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" MouseLeftButtonDown="rec_mouseLeftButtonDown"/>
+            <Rectangle Fill="Red" HorizontalAlignment="Left" Height="112" Margin="144,421,0,0" Stroke="Black" VerticalAlignment="Top" Width="112" MouseLeftButtonDown="rec_mouseLeftButtonDown"/>
+            <Rectangle Fill="Lime" HorizontalAlignment="Left" Height="112" Margin="76,309,0,0" Stroke="Black" VerticalAlignment="Top" Width="114" MouseLeftButtonDown="rec_mouseLeftButtonDown"/>
+            <Rectangle Name="Centro" Fill="#FF2D2D2D" HorizontalAlignment="Left" Height="164" Margin="10,132,0,0" Stroke="Black" VerticalAlignment="Top" Width="246" Drop="Centro_Drop"/>
+            <Rectangle Name="referencia" Fill="Red" HorizontalAlignment="Left" Height="100" Margin="90,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="100" />
+            <Label Name="lreferencia" Content="Label" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="-2.526,3">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="20"/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <Label Content="Label" HorizontalAlignment="Left" Margin="-110,421,0,0" VerticalAlignment="Top"/>
+        </Grid>
+        <Label Name="pos" Content="Label" Grid.Column="1" Margin="0" Grid.Row="6" VerticalContentAlignment="Center"/>
+        <Label Name="posRef" Content="Label" Margin="0" Grid.Row="5" Grid.Column="1"/>
+    </Grid>
+</Window>
