@@ -27,15 +27,18 @@ namespace hilos
         List<Label> labels;
         Point PositionMouseScreen;
         public Label LabelSelected = new Label();
+        public TextBox TextSelected = new TextBox();
         Point posActual;
-        Point posNext;
+        
         public MainWindow()
         {
             InitializeComponent();
             labels = new List<Label>(); 
 
         }
-
+        Boolean flagLabel = false;
+        Boolean flagText = false; 
+        int contador = 0;
         private void Centro_Drop(object sender, DragEventArgs e)
         {
             SolidColorBrush scb = (SolidColorBrush)e.Data.GetData(typeof(SolidColorBrush));
@@ -50,76 +53,140 @@ namespace hilos
             DataObject Do = new DataObject(r.Fill);
             DragDrop.DoDragDrop(r,Do,DragDropEffects.All);
          }
-
+ 
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
             PositionMouseScreen = e.GetPosition(this.workSpace);
             pos.Content = "x: " + PositionMouseScreen.X + "   Windoww\ny: " + PositionMouseScreen.Y;
         }
-        private void mouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-        }
-        private void mouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            Console.WriteLine("Despresionado");
-        }
-        private void a_MouseMove(object sender, MouseEventArgs e)
-        {
-                     
-        }
-        int contador = 0;
+
+        
         private void lIf_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
-            Label a = new ClassLabel("label "+contador,60,60).getLabel();
+            SolidColorBrush[] brushes = new SolidColorBrush[] 
+                                        {   Brushes.Green, Brushes.BurlyWood,Brushes.CadetBlue,
+                                            Brushes.Gray,Brushes.Chartreuse,Brushes.Chocolate,
+                                            Brushes.AliceBlue,Brushes.Coral,Brushes.CornflowerBlue,
+                                            Brushes.AntiqueWhite,Brushes.Cornsilk,Brushes.Crimson,
+                                            Brushes.Aqua,Brushes.Cyan,Brushes.DarkBlue,Brushes.DarkCyan,
+                                            Brushes.Aquamarine,Brushes.DarkGoldenrod,Brushes.DarkGray,
+                                            Brushes.Azure,Brushes.DarkGreen,Brushes.DarkKhaki,
+                                            Brushes.Beige,Brushes.DarkMagenta,Brushes.DarkOliveGreen,
+                                            Brushes.Bisque,Brushes.DarkOrange,Brushes.DarkOrchid,
+                                            Brushes.Black,Brushes.DarkRed,Brushes.DarkSalmon,
+                                            Brushes.BlanchedAlmond,Brushes.DarkSeaGreen,Brushes.DarkSlateBlue,
+                                            Brushes.Blue,Brushes.DarkSlateGray,Brushes.DarkTurquoise,
+                                            Brushes.BlueViolet,Brushes.Brown,Brushes.DarkViolet
+                                        };
+            Label a = new Label() { Content="Label "+contador};
+            a.Name = "s"+contador;
+            a.Background = brushes[new Random().Next(brushes.Length)];
+            a.HorizontalAlignment =System.Windows.HorizontalAlignment.Left;
+            a.VerticalAlignment =  System.Windows.VerticalAlignment.Top;
             a.MouseDown += new System.Windows.Input.MouseButtonEventHandler(this.label_mouseDown);
-            a.MouseUp += new System.Windows.Input.MouseButtonEventHandler(this.label_mouseUp);
             a.MouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(this.mouseLeftButtonDown);
-            a.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(this.mouseLeftButtonUp);
-            a.MouseMove += new System.Windows.Input.MouseEventHandler(this.a_MouseMove);
+            
             this.workSpace.Children.Add(a);
-
+            a.Margin = new Thickness(500,500,0,0);
             contador++;
         }
-
-        private void label_mouseDown(object sender, MouseButtonEventArgs e)
+        
+        private void mouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Label l = (Label)sender;
             LabelSelected = l;
             posActual = PositionMouseScreen;
-            LabelSelected.Content = posActual.X + "," + posActual.Y;
-           // Console.WriteLine("DOWN >>>"+posActual.X+" "+posActual.Y);
+            Console.WriteLine("PASO?");
+            flagLabel = false; 
             
         }
-        private void label_mouseUp(object sender, MouseButtonEventArgs e)
+        private void label_mouseDown(object sender, MouseButtonEventArgs e)
         {
 
-            Console.WriteLine("UP>>>" );
-
+            Label label = (Label)sender;
+            Console.WriteLine(label.Name.ToString());
+            flagLabel = true;
         }
-
+        
 
         private void Window_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            posNext = PositionMouseScreen;
-           LabelSelected.Content =posNext.X+","+posNext.Y;
-            double posx = 0;
-            double posy = 0;
-            posx = (posActual.X - posNext.X);
-            posy = (posActual.Y - posNext.Y);
+            Point posNext = PositionMouseScreen;
 
-            LabelSelected.Margin = new Thickness(posNext.X,posNext.Y,0,0);
-            Console.WriteLine("<<------------------->>");
-            Console.WriteLine("comparacion actual Next\nx"+posActual.X + ">" + posNext.X + "\ny" + posActual.Y + ">" + posNext.Y);
-            Console.WriteLine("\nposicion final\nx" +( posActual.X - posx )+ " y" + (posActual.Y-posy));
-            TranslateTransform translate = new TranslateTransform(posx*-1, posy*-1);
-            Console.WriteLine("\nposicion invertida\nx" + posx * -1 + " y" + posy * -1);
-            LabelSelected.RenderTransform = translate;
+            int posx = 0;
+            int posy = 0;
+            posx += (Convert.ToInt32(posNext.X - posActual.X) + 1) * -1;
+            posy += Convert.ToInt32(posNext.Y - posActual.Y) * -1;
 
-            Point p = e.GetPosition(this.workSpace);
-            LabelSelected.Content = p.X + "," + p.Y;
+            Console.WriteLine("WINDOWS MOUSE UP \nTEXT " + flagText + "\nLABEL   " + flagLabel);
+                //LabelSelected.Margin = new Thickness(posNext.X, posNext.Y, 0, 0);
+            if (flagLabel)
+            {
+                LabelSelected.Margin = new Thickness(posNext.X, posNext.Y, 0, 0);
+                //TranslateTransform translate = new TranslateTransform(posx*-1, posy*-1);
+                //LabelSelected.RenderTransform = translate;
+                LabelSelected.Content = posx * -1 + "," + posy * -1;
+                this.referencia.Margin = new Thickness(posNext.X, posNext.Y, 0, 0);
+            }
+            if (flagText)
+            {
+                TextSelected.Margin = new Thickness(posNext.X, posNext.Y, 0, 0);
+                //TranslateTransform translate = new TranslateTransform(posx*-1, posy*-1);
+                //LabelSelected.RenderTransform = translate;
+                TextSelected.Text = posx * -1 + "," + posy * -1;
+            }
+            flagLabel = false;
+            flagText = false;
+        }
+        //CREA TEXBOX
+        int contC = 0;
+        private void for_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            SolidColorBrush[] brushes = new SolidColorBrush[] 
+                                        {   Brushes.Green, Brushes.BurlyWood,Brushes.CadetBlue,
+                                            Brushes.Gray,Brushes.Chartreuse,Brushes.Chocolate,
+                                            Brushes.AliceBlue,Brushes.Coral,Brushes.CornflowerBlue,
+                                            Brushes.AntiqueWhite,Brushes.Cornsilk,Brushes.Crimson,
+                                            Brushes.Aqua,Brushes.Cyan,Brushes.DarkBlue,Brushes.DarkCyan,
+                                            Brushes.Aquamarine,Brushes.DarkGoldenrod,Brushes.DarkGray,
+                                            Brushes.Azure,Brushes.DarkGreen,Brushes.DarkKhaki,
+                                            Brushes.Beige,Brushes.DarkMagenta,Brushes.DarkOliveGreen,
+                                            Brushes.Bisque,Brushes.DarkOrange,Brushes.DarkOrchid,
+                                            Brushes.Black,Brushes.DarkRed,Brushes.DarkSalmon,
+                                            Brushes.BlanchedAlmond,Brushes.DarkSeaGreen,Brushes.DarkSlateBlue,
+                                            Brushes.Blue,Brushes.DarkSlateGray,Brushes.DarkTurquoise,
+                                            Brushes.BlueViolet,Brushes.Brown,Brushes.DarkViolet
+                                        };
+            TextBox b = new TextBox() { Text = "Label " + contC };
+            b.Name = "s" + contador;
+            b.Background = brushes[new Random().Next(brushes.Length)];
+            b.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+            b.VerticalAlignment = System.Windows.VerticalAlignment.Top;
+            b.PreviewMouseLeftButtonDown += new System.Windows.Input.MouseButtonEventHandler(this.TextBox_PreviewMouseLeftButtonDown);
+            b.PreviewMouseDown += new System.Windows.Input.MouseButtonEventHandler(this.TextBox_PreviewDown);
+            this.workSpace.Children.Add(b);
+            b.Margin = new Thickness(0, 0, 0, 0);
+            contC++;
         }
 
 
+        private void TextBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBox l = (TextBox)sender;
+            TextSelected = l;
+            posActual = PositionMouseScreen;
+            
+            flagText = false;
+            Console.WriteLine("TextBox_PreviewMouseLeftButtonDown     FALSE");
+        }
+
+        private void TextBox_PreviewDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBox label = (TextBox)sender;
+            
+            flagText = true;
+            Console.WriteLine("TextBox_PreviewDown   TRUE");
+            //Window_MouseUp(sender, e);
+        }
     }
 }

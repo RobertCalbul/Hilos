@@ -17,6 +17,10 @@ namespace hilos
         public Label ele { get; set; }
         public ClassLabel()
         { }
+        public ClassLabel(String nombre)
+        {
+            this.nombre = nombre;
+        }
         public ClassLabel( String nombre,int posx, int posy)
         {
             this.nombre = nombre;
@@ -38,9 +42,10 @@ namespace hilos
             //nueva.Margin = new System.Windows.Thickness(this.posx, this.posy,0,0);
             nueva.Content = this.nombre;
             nueva.Height =40;
+
             //nueva.Background = new 
-            TranslateTransform translateTransform1 = new TranslateTransform(this.posx, this.posy);
-            nueva.RenderTransform = translateTransform1;
+            //TranslateTransform translateTransform1 = new TranslateTransform(this.posx, this.posy);
+            //nueva.RenderTransform = translateTransform1;
 
             return nueva;
         }
