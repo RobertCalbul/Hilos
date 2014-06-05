@@ -37,25 +37,13 @@ namespace hilos
             Label nueva = new Label();
             //nueva.Margin = new System.Windows.Thickness(this.posx, this.posy,0,0);
             nueva.Content = this.nombre;
-            nueva.Width = 40;
-            nueva.Height = 40;
+            nueva.Height =40;
+            //nueva.Background = new 
             TranslateTransform translateTransform1 = new TranslateTransform(this.posx, this.posy);
             nueva.RenderTransform = translateTransform1;
 
             return nueva;
         }
-       /* public ClassLabel getLabel()
-        {
-            Label nueva = new Label();
-            //nueva.Margin = new System.Windows.Thickness(this.posx, this.posy,0,0);
-            nueva.Content = this.nombre;
-            nueva.Width = 40;
-            nueva.Height = 40;
-            TranslateTransform translateTransform1 = new TranslateTransform(this.posx, this.posy);
-            nueva.RenderTransform = translateTransform1;
-            //ClassLabel a =
-            return new ClassLabel(this.id, this.nombre, this.posx, this.posy, this.ele);
-        }*/
 
     }
 }

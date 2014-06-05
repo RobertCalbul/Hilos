@@ -20,7 +20,8 @@
         <Label Name="lInicio" Content="Inicio" Margin="0" Grid.Row="1"/>
         <Label Content="Label" Margin="0" Grid.Row="2"/>
         <Label Content="Label" Margin="0" Grid.Row="3"/>
-        <Grid  Name="workSpace" Grid.Column="1" Margin="0" Grid.RowSpan="7"  AllowDrop="True"  >
+        <Grid  Name="workSpace" Grid.Column="1" Margin="0" Grid.RowSpan="7" >
+            <Grid Name="ws">
             <Rectangle Fill="Blue" HorizontalAlignment="Left" Height="112" Margin="10,421,0,0" Stroke="Black" VerticalAlignment="Top" Width="122" MouseLeftButtonDown="rec_mouseLeftButtonDown"/>
             <Rectangle Fill="Red" HorizontalAlignment="Left" Height="112" Margin="144,421,0,0" Stroke="Black" VerticalAlignment="Top" Width="112" MouseLeftButtonDown="rec_mouseLeftButtonDown"/>
             <Rectangle Fill="Lime" HorizontalAlignment="Left" Height="112" Margin="76,309,0,0" Stroke="Black" VerticalAlignment="Top" Width="114" MouseLeftButtonDown="rec_mouseLeftButtonDown"/>
@@ -37,6 +38,7 @@
                 </Label.RenderTransform>
             </Label>
             <Label Content="Label" HorizontalAlignment="Left" Margin="-110,421,0,0" VerticalAlignment="Top"/>
+        </Grid>
         </Grid>
         <Label Name="pos" Content="Label" Grid.Column="1" Margin="0" Grid.Row="6" VerticalContentAlignment="Center"/>
         <Label Name="posRef" Content="Label" Margin="0" Grid.Row="5" Grid.Column="1"/>
